@@ -3,8 +3,10 @@ services:
   sonarqube:
     image: sonarqube:community
     hostname: sonarqube
-    container_name: sonarqube
-    # read_only: true
+    image: sonarqube:25.12.0.117093-community
+    read_only: true
+    tmpfs:
+      - /tmp
     depends_on:
       db:
         condition: service_healthy
