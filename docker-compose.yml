@@ -20,8 +20,7 @@ services:
       - /tmp:size=256M,mode=1777
     ports:
       - "9000:9000"
-    networks:
-      - ${NETWORK_TYPE:-ipv4}
+  
   db:
     image: postgres:17
     healthcheck:
@@ -37,8 +36,6 @@ services:
       POSTGRES_DB: sonar
     volumes:
       - postgresql:/var/lib/postgresql
-    networks:
-      - ${NETWORK_TYPE:-ipv4}
 
 volumes:
   sonarqube_data:
@@ -46,17 +43,3 @@ volumes:
   sonarqube_extensions:
   sonarqube_logs:
   postgresql:
-
-networks:
-  ipv4:
-    driver: bridge
-    enable_ipv6: false
-  dual:
-    driver: bridge
-    enable_ipv6: true
-    ipam:
-      config:
-        - subnet: "192.168.2.0/24"
-          gateway: "192.168.2.1"
-        - subnet: "2001:db8:2::/64"
-          gateway: "2001:db8:2::1"
